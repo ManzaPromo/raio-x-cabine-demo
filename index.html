@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raio-X de Cabine — Simulador</title>
+<link rel="stylesheet" href="estilo.css">
+<script defer src="simulador.js"></script>
+</head>
+<body>
+<main>
+<header class="intro">
+  <p class="tag">Demonstração pública · dados fictícios</p>
+  <h1>Raio-X de Cabine</h1>
+  <p class="lead">Quanto custa o mesmo atendimento quando a ocupação da cabine muda?</p>
+  <p>Use números de uma única cabine e do mesmo mês. A página funciona offline e não armazena nem envia os valores digitados. Não inclua dados de pacientes.</p>
+</header>
+<noscript><p>Ative JavaScript para fazer a simulação localmente.</p></noscript>
+<form id="simulador" class="painel" novalidate autocomplete="off">
+  <div class="titulo"><h2>1. Preencha as premissas</h2><button type="button" id="exemplo" class="secundario">Carregar exemplo fictício</button></div>
+  <p id="formato">Aceita vírgula ou ponto decimal, sem separador de milhar: <strong>3600</strong>, <strong>20,50</strong>.</p>
+  <div class="campos">
+    <div><label for="fixo">Custo fixo mensal da cabine (R$)</label>
+    <input id="fixo" inputmode="decimal" maxlength="14" required aria-describedby="fixo-ajuda formato">
+    <small id="fixo-ajuda">Some os custos fixos atribuídos à cabine, incluindo a parcela dela nos custos compartilhados.</small></div>
+    <div><label for="horas">Horas disponíveis no mês</label>
+    <input id="horas" inputmode="decimal" maxlength="8" required aria-describedby="horas-ajuda formato">
+    <small id="horas-ajuda">Horas que poderiam ser vendidas. Exclua fechamentos e bloqueios; não desconte a ociosidade de novo aqui.</small></div>
+    <div><label for="duracao">Tempo de cabine por atendimento (min)</label>
+    <input id="duracao" inputmode="numeric" maxlength="4" required aria-describedby="duracao-ajuda">
+    <small id="duracao-ajuda">Minutos inteiros. Inclua preparação e limpeza se reservam a cabine para esse atendimento.</small></div>
+    <div><label for="direto">Custo direto por atendimento (R$)</label>
+    <input id="direto" inputmode="decimal" maxlength="14" required aria-describedby="direto-ajuda formato">
+    <small id="direto-ajuda">Ex.: consumíveis e mão de obra paga por atendimento. Não repita itens já incluídos nos fixos.</small></div>
+  </div>
+  <fieldset>
+    <legend>Ocupação em três cenários</legend>
+    <p id="ocup-ajuda">Percentual das horas disponíveis efetivamente usado em atendimentos cobrados. Preencha em ordem crescente, de 0,01% a 100%.</p>
+    <div class="ocupacoes">
+      <div><label for="baixa">Baixa (%)</label><input id="baixa" inputmode="decimal" maxlength="6" required aria-describedby="ocup-ajuda"></div>
+      <div><label for="base">Base (%)</label><input id="base" inputmode="decimal" maxlength="6" required aria-describedby="ocup-ajuda"></div>
+      <div><label for="alta">Alta (%)</label><input id="alta" inputmode="decimal" maxlength="6" required aria-describedby="ocup-ajuda"></div>
+    </div>
+  </fieldset>
+  <p id="erro" class="erro" role="alert" hidden></p>
+  <button type="submit">Comparar cenários</button>
+  <p id="estado" role="status" class="estado"></p>
+</form>
+<section id="resultado" class="painel" aria-labelledby="titulo-resultado" hidden>
+  <div class="titulo"><h2 id="titulo-resultado" tabindex="-1">2. Compare os custos</h2><button type="button" id="imprimir" class="secundario">Imprimir / salvar PDF</button></div>
+  <p id="premissas"></p>
+  <table>
+    <caption>Valores por atendimento</caption>
+    <thead><tr><th scope="col">Ocupação</th><th scope="col">Rateio fixo</th><th scope="col">Custo estimado</th></tr></thead>
+    <tbody id="cenarios"></tbody>
+  </table>
+  <p id="diferenca"></p>
+  <p>As horas ocupadas são as horas disponíveis × ocupação. O rateio é o custo fixo mensal ÷ horas ocupadas × horas do atendimento. O total soma rateio e custo direto.</p>
+  <p><strong>Leia como estimativa parcial:</strong> o cálculo usa as premissas informadas e rateio uniforme por tempo. Não calcula lucro, preço recomendado, impostos sobre a venda ou taxas de pagamento; não prevê demanda.</p>
+</section>
+<p class="rodape"><a href="ficha.html">Abrir ficha de levantamento</a></p>
+</main>
+</body>
+</html>
