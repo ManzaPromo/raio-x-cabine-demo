@@ -2,7 +2,7 @@
 
 Demonstração gratuita para estimar como a ocupação muda o rateio do custo fixo por atendimento. A simulação de exemplo usa somente valores fictícios.
 
-Abra `index.html` em um navegador. Preencha custos e tempo de uma cabine no mesmo mês, escolha três cenários de ocupação e compare a estimativa. A ficha de levantamento ajuda a organizar as premissas.
+A demonstração pode ser usada pelo GitHub Pages. Para usar sem conexão, baixe todos os arquivos do repositório, extraia-os juntos e abra `index.html` em um navegador. Preencha custos e tempo de uma cabine no mesmo mês, escolha três cenários de ocupação e compare a estimativa. A ficha de levantamento ajuda a organizar as premissas. O [guia de leitura](guia-leitura.html) traz um exemplo fictício, explica a diferença entre cenários e ajuda a escolher uma premissa a verificar. A ficha e o guia podem ser impressos pelo navegador.
 
 ## Limites e privacidade
 
