@@ -9,3 +9,7 @@ Abra `index.html` em um navegador. Preencha custos e tempo de uma cabine no mesm
 O resultado é uma estimativa parcial baseada nos valores informados e em rateio uniforme por tempo. Não calcula lucro, preço recomendado, impostos, taxas de pagamento ou demanda. Não substitui orientação contábil. Não inclua dados de pacientes.
 
 A página não envia nem salva os valores digitados; o cálculo ocorre no navegador. Se imprimir ou salvar PDF, proteja a cópia criada.
+
+## Acessibilidade
+
+Quando um campo falha na validação, a mensagem de erro é associada ao campo por `aria-describedby`; ao corrigir os dados, essa associação temporária é removida. Isso melhora a relação programática entre campo e mensagem, mas não comprova compatibilidade com leitores de tela: não houve teste com leitor de tela nem com pessoas.

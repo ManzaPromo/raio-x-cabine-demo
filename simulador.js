@@ -47,7 +47,12 @@ function invalidate() {
   resultado.hidden = true;
   erro.hidden = true;
   erro.textContent = '';
-  for (const id of ids) byId(id).removeAttribute('aria-invalid');
+  for (const id of ids) {
+    const input = byId(id);
+    input.removeAttribute('aria-invalid');
+    const describedBy = (input.getAttribute('aria-describedby') || '').split(/\s+/).filter(ref => ref && ref !== 'erro');
+    input.setAttribute('aria-describedby', describedBy.join(' '));
+  }
 }
 
 function render(model) {
@@ -82,6 +87,9 @@ form.addEventListener('submit', event => {
     erro.hidden = false;
     const campo = byId(err.id);
     campo.setAttribute('aria-invalid', 'true');
+    const describedBy = (campo.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean);
+    if (!describedBy.includes('erro')) describedBy.push('erro');
+    campo.setAttribute('aria-describedby', describedBy.join(' '));
     campo.focus();
   }
 });
