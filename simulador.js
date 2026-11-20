@@ -38,7 +38,7 @@ function simulate() {
   const rows = [baixa, base, alta].map((ocupacao, i) => {
     const pagas = horas * ocupacao / 100;
     const rateio = fixo / pagas * (duracao / 60);
-    return {label: ['Baixa', 'Base', 'Alta'][i], ocupacao, rateio, total: direto + rateio};
+    return {label: ['Baixa', 'Base', 'Alta'][i], ocupacao, horasOcupadas: pagas, horasAtendimento: duracao / 60, rateio, direto, total: direto + rateio};
   });
   return {fixo, horas, duracao, direto, rows};
 }
@@ -71,6 +71,11 @@ function render(model) {
   }));
   const diff = model.rows[0].rateio - model.rows[2].rateio;
   byId('diferenca').textContent = `Diferença estimada entre os cenários baixo e alto: ${money.format(diff)} por atendimento (antes de arredondar os resultados exibidos).`;
+  byId('detalhes-calculo').replaceChildren(...model.rows.map(row => {
+    const item = document.createElement('li');
+    item.textContent = `${row.label}: ${number.format(model.horas)} h disponíveis × ${number.format(row.ocupacao)}% = ${number.format(row.horasOcupadas)} h ocupadas; ${money.format(model.fixo)} ÷ ${number.format(row.horasOcupadas)} h × ${number.format(row.horasAtendimento)} h = ${money.format(row.rateio)} de rateio; ${money.format(row.rateio)} + ${money.format(row.direto)} de custo direto = ${money.format(row.total)} por atendimento.`;
+    return item;
+  }));
   resultado.hidden = false;
   byId('titulo-resultado').focus();
 }
